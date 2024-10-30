@@ -1,8 +1,7 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 interface User {
   id: number;
@@ -29,6 +28,7 @@ export default function Home() {
   const deleteUser = (id: number) => {
     setUsers(users.filter((user) => user.id !== id));
   };
+
   // Função para iniciar edição
   const startEdit = (user: User) => {
     setEditingUserId(user.id);
@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <section className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-      <h1 className="text-3xl font-bold mb-6">to Fixed Concepts</h1>
+      <h1 className="text-3xl font-bold mb-6">User Management CRUD</h1>
       <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
         <Input
           type="text"
@@ -83,6 +83,7 @@ export default function Home() {
           </Button>
         )}
       </div>
+
       <ul className="w-full max-w-md mt-6">
         {users.map((user) => (
           <li
@@ -94,18 +95,18 @@ export default function Home() {
               <p className="text-gray-600">{user.email}</p>
             </div>
             <div className="flex space-x-3">
-              <Button
+              <button
                 onClick={() => startEdit(user)}
                 className="text-blue-500 bg-slate-300"
               >
                 Edit
-              </Button>
-              <Button
+              </button>
+              <button
                 onClick={() => deleteUser(user.id)}
-                className="text-red-500 bg-slate-300"
+                className="text-red-500"
               >
                 Delete
-              </Button>
+              </button>
             </div>
           </li>
         ))}
