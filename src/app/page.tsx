@@ -1,115 +1,24 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
+import Link from "next/link";
 
 export default function Home() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [editingUserId, setEditingUserId] = useState<number | null>(null);
-
-  // Função para adicionar usuário
-  const addUser = () => {
-    if (name && email) {
-      setUsers([...users, { id: Date.now(), name, email }]);
-      setName("");
-      setEmail("");
-    }
-  };
-
-  // Função para deletar usuário
-  const deleteUser = (id: number) => {
-    setUsers(users.filter((user) => user.id !== id));
-  };
-  // Função para iniciar edição
-  const startEdit = (user: User) => {
-    setEditingUserId(user.id);
-    setName(user.name);
-    setEmail(user.email);
-  };
-
-  // Função para salvar edição
-  const saveEdit = () => {
-    setUsers(
-      users.map((user) =>
-        user.id === editingUserId ? { ...user, name, email } : user
-      )
-    );
-    setEditingUserId(null);
-    setName("");
-    setEmail("");
-  };
-
   return (
-    <section className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-      <h1 className="text-3xl font-bold mb-6">to Fixed Concepts</h1>
-      <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-        <Input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-          className="w-full mb-3 p-2 border border-gray-300 rounded"
-        />
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="w-full mb-3 p-2 border border-gray-300 rounded"
-        />
-
-        {editingUserId ? (
-          <Button
-            onClick={saveEdit}
-            className="w-full bg-blue-500 text-white py-2 rounded"
-          >
-            Save
-          </Button>
-        ) : (
-          <Button
-            onClick={addUser}
-            className="w-full bg-green-500 text-white py-2 rounded"
-          >
-            Add User
-          </Button>
-        )}
-      </div>
-      <ul className="w-full max-w-md mt-6">
-        {users.map((user) => (
-          <li
-            key={user.id}
-            className="bg-white p-4 rounded shadow-md mb-3 flex justify-between items-center"
-          >
-            <div>
-              <p className="font-semibold">{user.name}</p>
-              <p className="text-gray-600">{user.email}</p>
-            </div>
-            <div className="flex space-x-3">
-              <Button
-                onClick={() => startEdit(user)}
-                className="text-blue-500 bg-slate-300"
-              >
-                Edit
-              </Button>
-              <Button
-                onClick={() => deleteUser(user.id)}
-                className="text-red-500 bg-slate-300"
-              >
-                Delete
-              </Button>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <section>
+      <main className="bg-[#1F2544] h-[100vh] w-full md:container flex flex-wrap items-center justify-center p-2">
+        <div className="flex flex-col gap-4 flex-grap">
+          <h1 className="text-5xl text-white font-bold text-center text-wrap">
+            REUNINDO VAGAS TECH EM UM SÓ LUGAR!
+          </h1>
+          <div className="flex gap-4">
+            <button className="bg-[#BFCFE7] w-1/2 p-4 h-[59px] text-black fot-bold">
+              <Link href={"/users/signIn"}>SOU CANDIDATO</Link>
+            </button>
+            <button className="bg-[#C2E7BF] w-1/2 p-4 h-[59px] text-black fo">
+              <Link href={"/companies/signUp"}>SOU EMPRESA</Link>
+            </button>
+          </div>
+        </div>
+      </main>
     </section>
   );
 }
